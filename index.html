@@ -3,50 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>부동산 임대 수익률 계산기</title>
+    <title>Rental Yield Calculator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>부동산 임대 수익률 계산기</h1>
+    <h1>Rental Yield Calculator</h1>
     <div class="calculator">
+        <h3>Basic Calculation</h3>
         <div class="form-group">
-            <label for="propertyPrice">매매가 (원):</label>
-            <input type="number" id="propertyPrice" placeholder="예: 500000000">
+            <label for="purchasePrice1">Purchase Price ($):</label>
+            <input type="number" id="purchasePrice1" placeholder="e.g., 500000000">
         </div>
         <div class="form-group">
-            <label for="monthlyRent">월세 (원):</label>
-            <input type="number" id="monthlyRent" placeholder="예: 2000000">
+            <label for="annualRent1">Annual Rent ($):</label>
+            <input type="number" id="annualRent1" placeholder="e.g., 30000000">
+        </div>
+        <button onclick="calculateBasicYield()">Calculate Basic Yield</button>
+
+        <h3>Leverage Calculation</h3>
+        <div class="form-group">
+            <label for="purchasePrice2">Purchase Price ($):</label>
+            <input type="number" id="purchasePrice2" placeholder="e.g., 500000000">
         </div>
         <div class="form-group">
-            <label for="annualExpenses">연간 지출 (원):</label>
-            <input type="number" id="annualExpenses" placeholder="예: 5000000">
+            <label for="loanAmount">Loan Amount ($):</label>
+            <input type="number" id="loanAmount" placeholder="e.g., 300000000">
         </div>
-        <button onclick="calculateYield()">계산하기</button>
+        <div class="form-group">
+            <label for="annualRent2">Annual Rent ($):</label>
+            <input type="number" id="annualRent2" placeholder="e.g., 30000000">
+        </div>
+        <button onclick="calculateLeverageYield()">Calculate Leverage Yield</button>
+
         <div class="results" id="results"></div>
     </div>
-    <script>
-        function calculateYield() {
-            const propertyPrice = parseFloat(document.getElementById('propertyPrice').value);
-            const monthlyRent = parseFloat(document.getElementById('monthlyRent').value);
-            const annualExpenses = parseFloat(document.getElementById('annualExpenses').value);
-
-            if (!propertyPrice || !monthlyRent || !annualExpenses) {
-                alert("모든 값을 입력해주세요!");
-                return;
-            }
-
-            const annualRent = monthlyRent * 12;
-            const netIncome = annualRent - annualExpenses;
-            const grossYield = (annualRent / propertyPrice) * 100;
-            const netYield = (netIncome / propertyPrice) * 100;
-
-            document.getElementById('results').innerHTML = `
-                <p>연간 임대 수입: ${annualRent.toLocaleString()} 원</p>
-                <p>순수익: ${netIncome.toLocaleString()} 원</p>
-                <p>총 수익률: ${grossYield.toFixed(2)}%</p>
-                <p>순수익률: ${netYield.toFixed(2)}%</p>
-            `;
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
