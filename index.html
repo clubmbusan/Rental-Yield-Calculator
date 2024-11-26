@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부동산 임대 수익률 계산기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .results p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>부동산 임대 수익률 계산기</h1>
+    <div class="calculator">
+        <div class="form-group">
+            <label for="propertyPrice">매매가 (원):</label>
+            <input type="number" id="propertyPrice" placeholder="예: 500000000">
+        </div>
+        <div class="form-group">
+            <label for="monthlyRent">월세 (원):</label>
+            <input type="number" id="monthlyRent" placeholder="예: 2000000">
+        </div>
+        <div class="form-group">
+            <label for="annualExpenses">연간 지출 (원):</label>
+            <input type="number" id="annualExpenses" placeholder="예: 5000000">
+        </div>
+        <button onclick="calculateYield()">계산하기</button>
+        <div class="results" id="results"></div>
+    </div>
+    <script>
+        function calculateYield() {
+            const propertyPrice = parseFloat(document.getElementById('propertyPrice').value);
+            const monthlyRent = parseFloat(document.getElementById('monthlyRent').value);
+            const annualExpenses = parseFloat(document.getElementById('annualExpenses').value);
+
+            if (!propertyPrice || !monthlyRent || !annualExpenses) {
+                alert("모든 값을 입력해주세요!");
+                return;
+            }
+
+            const annualRent = monthlyRent * 12;
+            const netIncome = annualRent - annualExpenses;
+            const grossYield = (annualRent / propertyPrice) * 100;
+            const netYield = (netIncome / propertyPrice) * 100;
+
+            document.getElementById('results').innerHTML = `
+                <p>연간 임대 수입: ${annualRent.toLocaleString()} 원</p>
+                <p>순수익: ${netIncome.toLocaleString()} 원</p>
+                <p>총 수익률: ${grossYield.toFixed(2)}%</p>
+                <p>순수익률: ${netYield.toFixed(2)}%</p>
+            `;
+        }
+    </script>
+</body>
+</html>
